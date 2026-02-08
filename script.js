@@ -83,4 +83,109 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll(); // Trigger once on load
+
+    // Theme Toggle Logic
+    const themeToggle = document.querySelector('.theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme) {
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+    }
+
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Voice Control Logic
+    const voiceBtn = document.getElementById('voice-btn');
+    const voiceStatus = document.getElementById('voice-status');
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        voiceBtn.addEventListener('click', () => {
+            if (voiceBtn.classList.contains('listening')) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        });
+
+        recognition.onstart = () => {
+            voiceBtn.classList.add('listening');
+            voiceStatus.textContent = 'Voice: Active';
+        };
+
+        recognition.onresult = (event) => {
+            const command = event.results[0][0].transcript.toLowerCase();
+            voiceStatus.textContent = `Saw: "${command}"`;
+            handleVoiceCommand(command);
+        };
+
+        recognition.onerror = (event) => {
+            if (event.error === 'no-speech') return; // Ignore silence
+            voiceBtn.classList.remove('listening');
+            voiceStatus.textContent = 'Error: ' + event.error;
+        };
+
+        recognition.onend = () => {
+            // Always-on behavior
+            recognition.start();
+        };
+
+        // Auto-start on load
+        window.addEventListener('load', () => {
+            recognition.start();
+        });
+
+        const handleVoiceCommand = (command) => {
+            const sections = {
+                'home': '#home',
+                'about': '#about',
+                'experience': '#experience',
+                'projects': '#projects',
+                'skills': '#skills',
+                'contact': '#contact',
+                'me': '#contact',
+                'show projects': '#projects',
+                'view projects': '#projects',
+                'journey': '#experience'
+            };
+
+            for (const key in sections) {
+                if (command.includes(key)) {
+                    const targetElement = document.querySelector(sections[key]);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 70,
+                            behavior: 'smooth'
+                        });
+                        return;
+                    }
+                }
+            }
+        };
+    } else {
+        voiceBtn.style.display = 'none';
+        console.log('Speech Recognition not supported in this browser.');
+    }
 });
