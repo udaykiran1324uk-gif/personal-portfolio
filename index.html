@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pudi Uday Kiran | Portfolio</title> 
-
+    <title>Pudi Uday Kiran | Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -22,6 +21,9 @@
         <div class="menu-btn">
             <i class="fas fa-bars"></i>
         </div>
+        <div class="theme-toggle">
+            <i class="fas fa-moon" id="theme-icon"></i>
+        </div>
     </nav>
 
     <section id="home" class="hero">
@@ -35,8 +37,7 @@
         </div>
         <div class="hero-image reveal">
             <div class="img-container">
-                <img src="uk.JPG" alt="Pudi Uday Kiran" class="transition-img active">  <!-- Here you can change your image -->
-
+                <img src="uk.JPG" alt="Pudi Uday Kiran" class="transition-img active">
                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1000&auto=format&fit=crop" alt="Coding 1" class="transition-img">
             </div>
         </div>
@@ -88,11 +89,35 @@
         <h2 class="section-title">Featured <span>Projects</span></h2>
         <div class="project-grid">
             <div class="project-card">
+                <h3>Face Recognition System</h3>
+                <p>Python & Web Stack</p>
+                <ul>
+                    <li><span class="highlight">Real-time</span> face detection and identification.</li>
+                    <li>Built with <span class="highlight">OpenCV, Flask</span>, and LBPH algorithms.</li>
+                </ul>
+            </div>
+            <div class="project-card">
                 <h3>Student Management System</h3>
                 <p>Python</p>
                 <ul>
                     <li><span class="highlight">Console-based</span> record management.</li>
                     <li>Persistent data storage via <span class="highlight">file handling</span>.</li>
+                </ul>
+            </div>
+            <div class="project-card">
+                <h3>Personal Portfolio Website</h3>
+                <p>HTML, CSS, JS</p>
+                <ul>
+                    <li>Responsive design with <span class="highlight">modern UI/UX</span>.</li>
+                    <li>Interactive components and smooth transitions.</li>
+                </ul>
+            </div>
+            <div class="project-card">
+                <h3>Basic Calculator Web App</h3>
+                <p>Web Stack</p>
+                <ul>
+                    <li>Real-time calculations using <span class="highlight">DOM manipulation</span>.</li>
+                    <li>Clean and functional user interface.</li>
                 </ul>
             </div>
             <div class="project-card">
@@ -165,10 +190,27 @@
         </div>
     </section>
 
+    <div class="voice-assistant">
+        <div class="voice-tooltip">
+            <strong>Voice Commands:</strong>
+            <ul>
+                <li>"Home"</li>
+                <li>"About"</li>
+                <li>"Projects"</li>
+                <li>"Skills"</li>
+                <li>"Contact"</li>
+            </ul>
+        </div>
+        <button id="voice-btn" class="voice-btn">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <div class="voice-status" id="voice-status">Voice: Always On</div>
+    </div>
+
     <footer>
-        <p>&copy; 2026 Pudi Uday Kiran. Created with <span class="highlight">&hearts;</span> and Code.</p>
+        <p>&copy; 2024 Pudi Uday Kiran. Created with <span class="highlight">&hearts;</span> and Code.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
 </body>
 </html>
